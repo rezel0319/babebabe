@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Birthday Page</title>
+  <style>
+    :root {
+      --primary: #5A67D8;
+      --accent: #EDF2F7;
+      --text: #2D3748;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background-color: var(--accent);
+      color: var(--text);
+    }
+
+    /* Navigation */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      background-color: white;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    nav h1 {
+      font-size: 1.5rem;
+      color: var(--primary);
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 1.5rem;
+    }
+
+    nav ul li a {
+      text-decoration: none;
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    nav ul li a:hover {
+      color: var(--primary);
+    }
+
+    /* Hero */
+    header {
+      height: 80vh;
+      background: url('hero.jpg') center/cover no-repeat;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      position: relative;
+    }
+
+    header::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.5);
+    }
+
+    header .hero-text {
+      position: relative;
+      color: white;
+      z-index: 1;
+      padding: 2rem;
+    }
+
+    header .hero-text h2 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+
+    header .hero-text p {
+      font-size: 1.2rem;
+      opacity: 0.9;
+    }
+
+    /* Sections */
+    section {
+      padding: 4rem 2rem;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .section-block {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .section-block img {
+      width: 100%;
+      max-width: 400px;
+      border-radius: 12px;
+    }
+
+    .section-block .text {
+      flex: 1;
+    }
+
+    .section-block .text h3 {
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+      color: var(--primary);
+    }
+
+    .section-block .text p {
+      font-size: 1rem;
+      line-height: 1.6;
+    }
+
+
+    /* About You Section */
+    #about {
+      padding: 4rem 2rem;
+      text-align: center;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    #about h3 {
+      font-size: 2.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    #about p {
+      font-size: 1.2rem;
+      line-height: 1.6;
+      margin-bottom: 2rem;
+    }
+
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  gap: 0.4rem;
+}
+
+
+
+.gallery img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 8px;
+  transition: transform 0.3s ease-in-out;
+  cursor: pointer;
+}
+
+
+    .gallery img:hover {
+      transform: scale(1.05);
+    }
+
+    /* Lightbox */
+    .lightbox {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.8);
+      display: none;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .lightbox img {
+      max-width: 90%;
+      max-height: 90%;
+      border-radius: 10px;
+    }
+
+    .lightbox.active {
+      display: flex;
+    }
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 2rem;
+      background: #1A202C;
+      color: white;
+      font-size: 0.9rem;
+    }
+
+.hamburger {
+  display: none;
+  font-size: 1.8rem;
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .hamburger {
+    display: block;
+  }
+    /* Responsive */
+    @media (max-width: 768px) {
+      header .hero-text h2 {
+        font-size: 2rem;
+      }
+
+     nav ul {
+    display: none;
+    flex-direction: column;
+    gap: 1rem;
+    position: absolute;
+    top: 60px;
+    right: 20px;
+    background: white;
+    padding: 1rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    z-index: 1001;
+  }
+
+  nav ul.active {
+    display: flex;
+  }
+
+      .section-block {
+        flex-direction: column;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav>
+  <h1>🎉 It's your day!</h1>
+  <div class="hamburger" onclick="toggleMenu()">☰</div>
+  <ul id="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#about1">Gallery</a></li>
+    <li><a href="#memories">Memories</a></li>
+    <li><a href="#wishes">Wishes</a></li>
+  </ul>
+</nav>
+
+
+  <!-- Hero -->
+  <header>
+    <div class="hero-text">
+      <h2>Happy Birthday, Babebabe! I love you</h2>
+      <p>Sa subra ko nga pag-plangga kanimo, hinimu-an tadon kaw published website.</p>
+    </div>
+  </header>
+
+
+ <!-- About You -->
+  <section id="about1">
+    <h3>Our Gallery</h3>
+    <p>
+      Hi, Babe! Man-an ko tamad kaw mag basa pay basaha gid ja. HAHA. Ti man-an mo don man nga crush takaw sang una, nahambal ko dun man da. Pay asta tulad daw ga sink-in gyapon kanakon nga migo tadun kaw. chars. Tama gid ko ka swerte kanimo, babe. Seryoso, kanimo ko lang na experience ya relasyon nga kalmado, pasensyoso, kag plangga-plangga ako. By the way, naka lightbox jang pictures sa gallery para ma maximize ya size kun e click mo. HAHAH webdev naman ko, idol.
+    </p>
+
+    <div class="gallery">
+      <!-- Gallery images -->
+      <img src="firstdate.jpg" alt="Memory 1" onclick="openLightbox(this)">
+      <img src="four.jpg" alt="Memory 2" onclick="openLightbox(this)">
+      <img src="two.jpg" alt="Memory 3" onclick="openLightbox(this)">
+      <img src="three.jpg" alt="Memory 4" onclick="openLightbox(this)">
+      <img src="five.jpg" alt="Memory 1" onclick="openLightbox(this)">
+      <img src="six.jpg" alt="Memory 2" onclick="openLightbox(this)">
+      <img src="seven.jpg" alt="Memory 3" onclick="openLightbox(this)">
+      <img src="eight.jpg" alt="Memory 4" onclick="openLightbox(this)">
+      <img src="nine.jpg" alt="Memory 1" onclick="openLightbox(this)">
+      <img src="ten.jpg" alt="Memory 2" onclick="openLightbox(this)">
+      <img src="eleven.jpg" alt="Memory 3" onclick="openLightbox(this)">
+      <img src="twelve.jpg" alt="Memory 4" onclick="openLightbox(this)">
+      <img src="thirteen.jpg" alt="Memory 1" onclick="openLightbox(this)">
+      <img src="fourteen.jpg" alt="Memory 2" onclick="openLightbox(this)">
+      <img src="fifteen.jpg" alt="Memory 3" onclick="openLightbox(this)">
+      <img src="sixteen.jpg" alt="Memory 4" onclick="openLightbox(this)">
+      <img src="seventeen.jpg" alt="Memory 1" onclick="openLightbox(this)">
+      <img src="eighteen.jpg" alt="Memory 2" onclick="openLightbox(this)">
+      <img src="nineteen.jpg" alt="Memory 3" onclick="openLightbox(this)">
+      <img src="twenty.jpg" alt="Memory 4" onclick="openLightbox(this)">
+      <img src="a.jpg" alt="Memory 1" onclick="openLightbox(this)">
+      <img src="aa.jpg" alt="Memory 2" onclick="openLightbox(this)">
+      <img src="b.jpg" alt="Memory 3" onclick="openLightbox(this)">
+      <img src="bb.jpg" alt="Memory 4" onclick="openLightbox(this)">
+      <img src="c.jpg" alt="Memory 1" onclick="openLightbox(this)">
+      <img src="cc.jpeg" alt="Memory 2" onclick="openLightbox(this)">
+      <img src="d.jpg" alt="Memory 3" onclick="openLightbox(this)">
+      <img src="dd.jpeg" alt="Memory 4" onclick="openLightbox(this)">
+      <img src="e.jpg" alt="Memory 1" onclick="openLightbox(this)">
+      <img src="ee.jpeg" alt="Memory 2" onclick="openLightbox(this)">
+      <img src="f.jpg" alt="Memory 3" onclick="openLightbox(this)">
+      <img src="ff.jpg" alt="Memory 4" onclick="openLightbox(this)">
+      <img src="g.jpg" alt="Memory 4" onclick="openLightbox(this)">
+      <img src="gg.jpg" alt="Memory 1" onclick="openLightbox(this)">
+      <img src="h.jpg" alt="Memory 2" onclick="openLightbox(this)">
+      <img src="hh.jpg" alt="Memory 3" onclick="openLightbox(this)">
+      <img src="i.jpg" alt="Memory 4" onclick="openLightbox(this)">
+      <img src="ii.jpg" alt="Memory 1" onclick="openLightbox(this)">
+      <img src="j.jpg" alt="Memory 2" onclick="openLightbox(this)">
+      <img src="jj.jpg" alt="Memory 3" onclick="openLightbox(this)">
+      <img src="k.jpg" alt="Memory 4" onclick="openLightbox(this)">
+      <img src="kk.jpg" alt="Memory 1" onclick="openLightbox(this)">
+      <img src="l.jpg" alt="Memory 2" onclick="openLightbox(this)">
+      <img src="ll.jpg" alt="Memory 3" onclick="openLightbox(this)">
+      <img src="m.jpg" alt="Memory 4" onclick="openLightbox(this)">
+      <img src="mm.jpeg" alt="Memory 1" onclick="openLightbox(this)">
+      <img src="n.jpg" alt="Memory 2" onclick="openLightbox(this)">
+      <img src="nn.jpeg" alt="Memory 3" onclick="openLightbox(this)">
+      <img src="o.jpg" alt="Memory 4" onclick="openLightbox(this)">
+      <img src="oo.jpeg" alt="Memory 2" onclick="openLightbox(this)">
+      <img src="p.jpg" alt="Memory 3" onclick="openLightbox(this)">
+      <img src="pp.jpeg" alt="Memory 4" onclick="openLightbox(this)">
+      <img src="q.jpg" alt="Memory 4" onclick="openLightbox(this)">
+      <img src="qq.jpeg" alt="Memory 1" onclick="openLightbox(this)">
+      <img src="r.jpg" alt="Memory 2" onclick="openLightbox(this)">
+      <img src="rr.jpeg" alt="Memory 3" onclick="openLightbox(this)">
+      <img src="s.jpg" alt="Memory 4" onclick="openLightbox(this)">
+      <img src="ss.jpeg" alt="Memory 1" onclick="openLightbox(this)">
+      <img src="t.jpg" alt="Memory 2" onclick="openLightbox(this)">
+      <img src="tt.jpg" alt="Memory 2" onclick="openLightbox(this)">
+      <img src="u.jpg" alt="Memory 3" onclick="openLightbox(this)">
+      <img src="v.jpg" alt="Memory 4" onclick="openLightbox(this)">
+      <img src="w.jpg" alt="Memory 1" onclick="openLightbox(this)">
+      <img src="x.jpg" alt="Memory 2" onclick="openLightbox(this)">
+      <img src="y.jpg" alt="Memory 3" onclick="openLightbox(this)">
+      <img src="z.jpg" alt="Memory 4" onclick="openLightbox(this)">
+    </div>
+  </section>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+    <img id="lightbox-image" src="" alt="Large view">
+  </div>
+
+  <!-- About -->
+  <section id="about">
+    <div class="section-block">
+      <img src="bg.jpg" alt="Birthday Photo 1">
+      <div class="text">
+        <h3>About You Para Daw Web Gid</h3>
+        <p>Perte gid ka hot dang babebabe ko. Muda ga siri gid mata ko kun my ga pasapak-sapak kanimo mu. HAHA. Dugangan pa ni Blake kag Venom. Pay te swerte ko lang kay akon kadon ah. :) Thanks gid babe sa tamaaaa ka laweg mo nga pasensya knkon jan kagid perme kun kinanglan takaw. Emotional, physical, bisan financial - t padar-e ko 2k bi. HAHAH. jk. Laka kalang mag-open up, pay kun mag open up kadon tama ka meaningful kag may sense. Tama kaw ka deep nga tawo. Unlike kanakon nga tama ka nabaw. 3 years palang ta ah, lawig pa years ko para ma tungkad personality mo. End danay ka about you. Haha.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Memories -->
+  <section id="memories">
+    <div class="section-block">
+      <div class="text">
+        <h3>Unforgettable Memory</h3>
+        <p>Ilam kun dumduman mo pa, pay mudya ya first ever date ta as a couple. Sa La Granja. May awkwardness pa ta di, pay pira gid pag evaporate ka awkwardness sa herher man. HAHAH. Waay ko kamaan kun diin nga point takaw gin-plangga ti sobra, basta nabatyagan ko dulang nga kabug-at ka life nga waay kaw. Most Unforgettable memory ko kanimo? Duro-duro. Pay ang number one gid, ang sa J'Maire Farm kita. Kag hambal mo, first mo dya nga serious kag formal nga date.</p>
+      </div>
+      <img src="firstdate.jpg" alt="Birthday Photo 2">
+    </div>
+  </section>
+
+  <!-- Wishes -->
+  <section id="wishes">
+    <div class="section-block">
+      <img src="sixteen.jpg" alt="Birthday Photo 3">
+      <div class="text">
+        <h3>Wishes Mo, Wishes Ko</h3>
+        <p>Proud-proud gid ko kanimo babe, grabe development mo sang nag ligad nga tinueg. Nalampasan kag nakaya mo mga problema. Ikaw naging pundasyon kag sandigan namon nanday nanay, nikki, kag mommy. Gabilib gid ko sa mindset mo kapin pa kun sa pangabuhi nga topic. Wish ko nga tanan nga wish mo matuman hay deserve mo gid all the happiness. Wish ko pagid nga mas maging open kaw kanakon sa tanan nga bagay, hanggod or gamay, mga nabudlayan mo, nabatyagan mo, as in tanan. I Love You, Nikko ko. Happy Birthday. God Bless you.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    With all my love, Babebabe Mo - Tata • © 05/04/2025
+  </footer>
+
+
+<script>
+  function toggleMenu() {
+    const navLinks = document.getElementById('nav-links');
+    navLinks.classList.toggle('active');
+  }
+</script>
+
+
+ <script>
+    // Open lightbox with clicked image
+    function openLightbox(image) {
+      const lightbox = document.getElementById('lightbox');
+      const lightboxImage = document.getElementById('lightbox-image');
+      lightboxImage.src = image.src;
+      lightbox.classList.add('active');
+    }
+
+    // Close lightbox when clicked
+    function closeLightbox() {
+      const lightbox = document.getElementById('lightbox');
+      lightbox.classList.remove('active');
+    }
+  </script>
+
+</body>
+</html>
